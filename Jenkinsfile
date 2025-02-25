@@ -8,7 +8,7 @@ pipeline {
         DOCKER_USERNAME = "pavan020504"
         DOCKER_PASSWORD = "Pavan@2230"
         SERVER_IP = "192.168.199.241"
-        SSH_KEY_PATH = "/var/lib/jenkins/.ssh/id_rsa"  // Correct SSH key path
+        SSH_KEY_PATH = "/var/lib/jenkins/.ssh/id_rsa"
     }
 
     stages {
@@ -65,16 +65,14 @@ pipeline {
         stage('Run Ansible Deployment') {
             steps {
                 script {
-                    withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'SSH_KEY_PATH')]) {
-                        sh '''
-                        echo "Creating Ansible hosts.ini file..."
-                        echo "[servers]" > hosts.ini
-                        echo "${SERVER_IP} ansible_user=pavan ansible_ssh_private_key_file=${SSH_KEY_PATH} ansible_ssh_common_args='-o StrictHostKeyChecking=no'" >> hosts.ini
+                    sh '''
+                    echo "Creating Ansible hosts.ini file..."
+                    echo "[servers]" > hosts.ini
+                    echo "${SERVER_IP} ansible_user=pavan ansible_ssh_private_key_file=${SSH_KEY_PATH}" >> hosts.ini
 
-                        echo "Running Ansible Playbook..."
-                        ansible-playbook -i hosts.ini deploy.yml
-                        '''
-                    }
+                    echo "Running Ansible Playbook..."
+                    ansible-playbook -i hosts.ini deploy.yml
+                    '''
                 }
             }
         }
