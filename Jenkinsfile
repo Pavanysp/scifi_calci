@@ -22,7 +22,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/ScientificCalculator.git'
+                git branch: 'main', url: 'https://github.com/Pavanysp/scifi_calci.git'
             }
         }
 
