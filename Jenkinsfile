@@ -13,7 +13,6 @@ pipeline {
                     sh '''
                     echo "Granting permissions to Jenkins user..."
                     sudo usermod -aG sudo jenkins
-                    sudo usermod -aG docker jenkins  # If using Docker later
                     sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/
                     '''
                 }
@@ -41,10 +40,10 @@ pipeline {
 
     post {
         success {
-            echo "Build and tests were successful!"
+            echo "Pipeline executed successfully!"
         }
         failure {
-            echo "Build failed! Check the logs."
+            echo "Pipeline failed! Check the logs."
         }
     }
 }
