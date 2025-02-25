@@ -16,7 +16,7 @@ pipeline {
                 script {
                     sh '''
                     echo "Granting permissions to Jenkins user..."
-                    sudo usermod -aG sudo jenkins
+                    sudo usermod -aG docker jenkins
                     sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/
                     '''
                 }
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Containerize Application') {
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE} .'
+                sh 'sudo docker build -t ${DOCKER_IMAGE} .'
             }
         }
 
@@ -52,8 +52,8 @@ pipeline {
                 script {
                     sh '''
                     echo "Logging in to Docker Hub..."
-                    echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-                    docker push ${DOCKER_IMAGE}
+                    echo "${DOCKER_PASSWORD}" | sudo docker login -u "${DOCKER_USERNAME}" --password-stdin
+                    sudo docker push ${DOCKER_IMAGE}
                     '''
                 }
             }
