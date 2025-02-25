@@ -8,7 +8,7 @@ pipeline {
         DOCKER_USERNAME = "pavan020504"
         DOCKER_PASSWORD = "Pavan@2230"
         SERVER_IP = "192.168.199.230"
-        SSH_KEY_PATH = "/var/lib/jenkins/.ssh/id_rsa"  // Correct SSH key location
+        SSH_KEY_PATH = "/var/lib/jenkins/.ssh/id_rsa"  // Correct SSH key path
     }
 
     stages {
@@ -19,9 +19,8 @@ pipeline {
                     echo "Granting permissions to Jenkins user..."
                     sudo usermod -aG docker jenkins
                     sudo mkdir -p /var/lib/jenkins/.ssh
-                    sudo cp ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa
                     sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh
-                    sudo chmod 600 /var/lib/jenkins/.ssh/id_rsa
+                    sudo chmod 700 /var/lib/jenkins/.ssh
                     '''
                 }
             }
@@ -66,14 +65,16 @@ pipeline {
         stage('Run Ansible Deployment') {
             steps {
                 script {
-                    sh '''
-                    echo "Creating Ansible hosts.ini file..."
-                    echo "[servers]" > hosts.ini
-                    echo "${SERVER_IP} ansible_user=pavan ansible_ssh_private_key_file=${SSH_KEY_PATH}" >> hosts.ini
-                    
-                    echo "Running Ansible Playbook..."
-                    ansible-playbook -i hosts.ini deploy.yml
-                    '''
+                    withCredentials([sshUserPrivateKey(credentialsId: 'ansible-ssh-key', keyFileVariable: 'SSH_KEY_PATH')]) {
+                        sh '''
+                        echo "Creating Ansible hosts.ini file..."
+                        echo "[servers]" > hosts.ini
+                        echo "${SERVER_IP} ansible_user=pavan ansible_ssh_private_key_file=${SSH_KEY_PATH}" >> hosts.ini
+
+                        echo "Running Ansible Playbook..."
+                        ansible-playbook -i hosts.ini deploy.yml
+                        '''
+                    }
                 }
             }
         }
