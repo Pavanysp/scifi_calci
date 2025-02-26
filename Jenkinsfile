@@ -7,7 +7,7 @@ pipeline {
         DOCKER_IMAGE = "pavan020504/scientific-calculator"
         DOCKER_USERNAME = "pavan020504"
         DOCKER_PASSWORD = "Pavan@2230"
-        SERVER_IP = "192.168.199.241"
+        SERVER_IP = "192.168.199.163"
         SSH_KEY_PATH = "/var/lib/jenkins/.ssh/id_rsa"
     }
 
