@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-# Set the working directory inside the container
+# Set the working directory inside  container
 WORKDIR /app
 
 # Copy the JAR file to the container
