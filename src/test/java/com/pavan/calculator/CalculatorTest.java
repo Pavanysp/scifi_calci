@@ -8,21 +8,25 @@ public class CalculatorTest {
 
     @Test
     public void testSquareRoot() {
-        assertEquals(7.5, calc.squareRoot(16), 0.001);
+        assertEquals(5.0, calc.squareRoot(25), 0.001);
+        assertEquals(3.162, calc.squareRoot(10), 0.001);
     }
 
     @Test
     public void testFactorial() {
-        assertEquals(45, calc.factorial(5));
+        assertEquals(1, calc.factorial(0));
+        assertEquals(6, calc.factorial(3));
     }
 
     @Test
     public void testNaturalLog() {
-        assertEquals(6, calc.naturalLog(Math.E), 0.001);
+        assertEquals(0.0, calc.naturalLog(1), 0.001);
+        assertEquals(2.303, calc.naturalLog(10), 0.001);
     }
 
     @Test
     public void testPower() {
-        assertEquals(9.0, calc.power(2, 3), 0.001);
+        assertEquals(1.0, calc.power(5, 0), 0.001);
+        assertEquals(27.0, calc.power(3, 3), 0.001);
     }
 }
