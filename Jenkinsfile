@@ -50,11 +50,11 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Upload to Docker Hub') {
             steps {
                 script {
                     sh '''
-                    echo "Logging in to Docker Hub..."
+                    echo "Logging in to Docker Hub"
                     echo "${DOCKER_PASSWORD}" | sudo docker login -u "${DOCKER_USERNAME}" --password-stdin
                     sudo docker push ${DOCKER_IMAGE}
                     '''
@@ -62,15 +62,15 @@ pipeline {
             }
         }
 
-        stage('Run Ansible Deployment') {
+        stage('Deploy via Ansible') {
             steps {
                 script {
                     sh '''
-                    echo "Creating Ansible hosts.ini file..."
+                    echo "Creating Ansible hosts.ini file"
                     echo "[servers]" > hosts.ini
                     echo "${SERVER_IP} ansible_user=pavan ansible_ssh_private_key_file=${SSH_KEY_PATH}" >> hosts.ini
 
-                    echo "Running Ansible Playbook..."
+                    echo "Running the Ansible Playbook..."
                     ansible-playbook -i hosts.ini deploy.yml
                     '''
                 }
@@ -80,7 +80,7 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline executed successfully! The Scientific Calculator is deployed."
+            echo "Pipeline executed successfully! The Scientific Calculator is successfully deployed."
         }
         failure {
             echo "Pipeline failed! Check the logs for errors."
