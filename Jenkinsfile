@@ -5,7 +5,7 @@ pipeline {
         MAVEN_HOME = "/usr/share/maven"
         PATH = "$PATH:$MAVEN_HOME/bin"
         DOCKER_IMAGE = "pavan020504/scientific-calculator"
-        SERVER_IP = "172.17.0.1"
+        SERVER_IP = "127.0.0.1"
         SSH_KEY_PATH = "/var/lib/jenkins/.ssh/id_rsa"
     }
 
