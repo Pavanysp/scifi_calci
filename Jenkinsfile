@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    echo "Granting permissions to the Jenkins user."
+                    echo "Granting permissions to the Jenkins user..."
                     sudo usermod -aG docker jenkins
                     sudo mkdir -p /var/lib/jenkins/.ssh
                     sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh
