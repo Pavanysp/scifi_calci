@@ -54,10 +54,9 @@ pipeline {
                                                   usernameVariable: 'DOCKER_USER', 
                                                   passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
-                    echo "Logging in to the  Docker Hub"
-                    echo "${DOCKER_PASSWORD}" | sudo docker login -u "${DOCKER_USERNAME}" --password-stdin
                     echo "Logging in to Docker Hub"
                     echo "${DOCKER_PASS}" | sudo docker login -u "${DOCKER_USER}" --password-stdin
+                    sudo docker push ${DOCKER_IMAGE}
                     '''
                 }
             }
