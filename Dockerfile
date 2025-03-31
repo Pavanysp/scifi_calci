@@ -7,4 +7,4 @@ WORKDIR /app
 COPY target/ScientificCalculator-1.0-SNAPSHOT.jar calculator.jar
 
 # Run the application
-CMD ["java", "-jar", "calculator.jar"]
+CMD ["sh", "-c", "java -jar calculator.jar"]
