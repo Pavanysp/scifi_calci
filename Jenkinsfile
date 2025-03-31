@@ -80,7 +80,7 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline executed successfully! The Scientific Calculator is successfully deployed."
+            echo "Pipeline executed successfully! The Scientific Calculator is successfully deployed......"
         }
         failure {
             echo "Pipeline failed! Check the logs for errors..."
